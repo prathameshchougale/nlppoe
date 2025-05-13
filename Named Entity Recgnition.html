@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+	<pre>
+Named Entity Recgnition (NER)
+
+!pip install spacy
+!python -m spacy download en_core_web_sm
+import spacy
+from spacy import displacy
+#Load spaCy's English NER model
+nlp = spacy.load("en_core_web_sm")
+
+# Sample text
+text ='''
+Groundwater is the water present beneath Earth's surface in rock and soil pore spaces and in the fractures of rock formations.
+About 30 percent of all readily available fresh water in the world is groundwater.[1]
+A unit of rock or an unconsolidated deposit is called an aquifer when it can yield a usable quantity of water.
+The depth at which soil pore spaces or fractures and voids in rock become completely saturated with water is called the water table.
+Groundwater is recharged from the surface; it may discharge from the surface naturally at springs and seeps, and can form oases or wetlands.
+Groundwater is also often withdrawn for agricultural, municipal, and industrial use by constructing and operating extraction wells.
+The study of the distribution and movement of groundwater is hydrogeology, also called groundwater hydrology.
+'''
+doc= nlp(text)
+
+#Display named entities
+for ent in doc.ents:
+  print(ent.text, ent.label_)
+
+#Visualise entities
+displacy.render(doc, style="ent", jupyter=True)
+
+
+	</pre>
+
+</body>
+</html>

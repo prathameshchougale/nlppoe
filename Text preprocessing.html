@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+	<pre>
+Text preprocessing
+
+pip install gensim
+import gensim
+
+from gensim.parsing.preprocessing import remove_stopwords
+text="Cricket is a bat-ball Game played between two teams of eleven players on a field, at the centre of which is a 22-yard (20-metre; 66-foot) pitch with a wicket at each end, each comprising two bails (small sticks) balanced on three stumps. Two players from the batting team, the striker and nonstriker, stand in front of either wicket holding bats, while one player from the fielding team, the bowler, bowls the ball toward the striker's wicket from the opposite end of the pitch. The striker's goal is to hit the bowled ball with the bat and then switch places with the nonstriker, with the batting team scoring one run for each of these exchanges. Runs are also scored when the ball reaches the boundary of the field or when the ball is bowled illegally"
+text=text.lower()
+text
+
+text = remove_stopwords(text)
+text
+
+from gensim.utils import simple_preprocess
+words=simple_preprocess(text)
+print(words)
+from nltk.stem import WordNetLemmatizer
+import nltk
+
+nltk.download('wordnet')
+nltk.download('omw-1.4')
+
+lemmtizer=WordNetLemmatizer()
+lemmtizer.lemmatize('broken',pos='v')
+
+lemm_words=[lemmtizer.lemmatize(word,pos='v') for word in words]
+print(lemm_words)
+
+import re
+import nltk
+
+# Given Input
+text = "In the U.K., a Samsung Galaxy S23 is priced at £799.99"
+
+# Regular Expression Tokenization (Splitting on spaces & punctuation)
+tokens = re.findall(r'\b\w+\b|\£\d+\.\d+', text)
+print("Regex Tokenization:", tokens)
+
+
+
+
+
+
+	</pre>
+
+</body>
+</html>

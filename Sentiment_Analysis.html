@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+	<pre>
+		
+Sentiment_Analysis
+
+# 1.Import necessary libraries
+import nltk
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+import matplotlib.pyplot as plt
+nltk.download('vader_lexicon')
+
+# 2. Load and preprocess text data
+text_samples = [
+     "I absolutely love this product! It's amazing and works perfectly.",
+     "This is the worst service I've ever experienced. Terrible!",
+     "The movie was okay, nothing special but not bad either.",
+     "I'm feeling very happy today! The weather is beautiful.",
+     "This software keeps crashing. Extremely frustrating.",
+     "The food was decent, but the service could be better.",
+     "I'm neutral about this topic. It doesn't affect me much."
+     ]
+	 
+# 3.Initialize VADER sentiment analyzer
+SIA = SentimentIntensityAnalyzer()
+sentiment_results = []
+for text in text_samples:
+  sentiment_score = SIA.polarity_scores(text)
+  sentiment_results.append({
+      'text': text,
+      'compound': sentiment_score['compound'],
+      'positive': sentiment_score['pos'],
+      'negative': sentiment_score['neg'],
+      'neutral': sentiment_score['neu']
+      })
+	  
+# 4.Interpret sentiment scores and classify
+for result in sentiment_results:
+  compound_score = result['compound']
+  if compound_score >= 0.05:
+     sentiment = 'Positive'
+  elif compound_score <= -0.05:
+     sentiment = 'Negative'
+  else:
+     sentiment = 'Neutral'
+  result['sentiment'] = sentiment
+print(f"Text: {result['text']}")
+print(f"Sentiment: {sentiment}")
+print(f"Compound Score: {compound_score:.2f}")
+print(f"Positive: {result['positive']:.2f}, Negative: {result['negative']:.2f}, Neutral: {result['neutral']:.2f}")
+print("-" * 50)
+
+# 5.Visualize sentiment distribution
+sentiment_counts = {'Positive': 0, 'Negative': 0, 'Neutral': 0}
+for result in sentiment_results:
+  sentiment_counts[result['sentiment']]+=1
+
+plt.figure(figsize=(8, 5))
+plt.bar(sentiment_counts.keys(), sentiment_counts.values(),
+        color=['green','red','blue'])
+plt.title('Sentiment Distribution')
+plt.xlabel('Sentiment Category')
+plt.ylabel('Number of Samples')
+plt.show()
+
+
+
+	</pre>
+
+</body>
+</html>

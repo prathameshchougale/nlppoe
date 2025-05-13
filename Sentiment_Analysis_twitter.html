@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+	<pre>
+		
+import nltk
+import pandas as pd
+import matplotlib.pyplot as plt
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+
+nltk.download('vader_lexicon')
+
+df = pd.read_csv("twitter_sentiment.csv")
+# Initialize VADER sentiment analyzer
+analyzer = SentimentIntensityAnalyzer()
+# Store sentiment results
+sentiments = {'positive': 0, 'neutral': 0, 'negative': 0}
+
+for sentence in df['text']:
+    score = analyzer.polarity_scores(sentence)
+    compound = score['compound']
+    if compound >= 0.05:
+        sentiments['positive'] += 1
+    elif compound <= -0.05:
+        sentiments['negative'] += 1
+    else:
+        sentiments['neutral'] += 1
+
+labels = sentiments.keys()
+sizes = sentiments.values()
+colors = ['green', 'grey', 'red']
+
+plt.figure(figsize=(7, 5))
+plt.bar(labels, sizes, color=colors)
+plt.title('Sentiment Distribution from Twitter Dataset using VADER')
+plt.xlabel('Sentiment')
+plt.ylabel('Number of Tweets')
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.show()
+
+
+
+
+
+	</pre>
+
+</body>
+</html>

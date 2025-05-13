@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+	<pre>
+		
+
+Gensim_Text Summarization & Keyword Extraction
+
+!pip3 install gensim==3.6.0
+
+from gensim.summarization import summarize
+
+text="""
+Automatic summarization is the process of shortening a set of data
+computationally,
+to create a subset (a summary) that represents the most important or
+relevant information
+within the original content. In addition to text, images and videos
+can also be summarized.
+Text summarization finds the most informative sentences in a document;
+various algorithms
+exist to do this, including statistical, linguistic, and machine
+learning approaches.
+The Gensim library in Python provides a simple implementation of text
+summarization
+based
+"""
+
+summary = summarize(text, ratio=0.5)
+
+print("Original Text:\n", text)
+print("\nSummarized Text:\n", summary)
+
+# Keyword Extraction using Gensim
+from gensim.summarization import keywords
+
+# Perform keyword extraction using RAKE algorithm
+extracted_keywords = keywords(text, ratio=0.5, lemmatize=True)
+print("Extracted Keywords:\n", extracted_keywords)
+
+
+
+	</pre>
+
+</body>
+</html>
